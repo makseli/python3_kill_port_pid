@@ -2,7 +2,11 @@
 # -*- coding: utf-8 -*- 
 
 import subprocess
-import sys
+aktifKullanici = subprocess.getoutput("whoami")
+
+if(aktifKullanici != "root"):
+    print("\n lütfen yonetici yetkisi ile çalıştırın !... \n")
+    exit()
 
 try:
     portNo = int(input("\nlütfen port numarası giriniz: "))
@@ -15,15 +19,12 @@ except ValueError:
 finally:
 
     if(portNo < 1):
-        sys.exit()
+        exit()
 
 ss = subprocess.getoutput("lsof -i :"+str(portNo))
-aktifKullanici = subprocess.getoutput("whoami")
 gel = ss.split(aktifKullanici)
 
-print("\n")
-
-print(ss)
+print("\n " + ss)
 
 dizi = str(gel[0]).split(" ")
 
